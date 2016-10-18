@@ -9,6 +9,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Assignment_16_5 extends Application {
+	private int myDecimal;
+	private String myHex;
+	private String myBinary;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -24,31 +27,34 @@ public class Assignment_16_5 extends Application {
 		pane.add(new Label("Binary"), 0,2);
 		
 		//Creating TextFields
-		TextField input = new TextField();
-		TextField input2 = new TextField();
-		TextField input3 = new TextField();
+		TextField tfDecimal = new TextField();
+		TextField tfHex = new TextField();
+		TextField tfBinary = new TextField();
 		
-		pane.add(input, 1, 0);
-		pane.add(input2, 1, 1);
-		pane.add(input3, 1, 2);
+		pane.add(tfDecimal, 1, 0);
+		pane.add(tfHex, 1, 1);
+		pane.add(tfBinary, 1, 2);
 		
 		
-		input.setOnAction(e -> 
+		tfDecimal.setOnAction(e -> 
 		{
-			input2.setText(input.getText());
-			input3.setText(input.getText());
+			decimalMethod(tfDecimal.getText().toString());
+			tfHex.setText(myHex);
+			tfBinary.setText(myBinary);
+			
 		});
 		
-		input2.setOnAction(e -> 
+		tfHex.setOnAction(e -> 
 		{
-			input.setText(input2.getText());
-			input3.setText(input2.getText());
+			hexToDecimal(tfHex.getText().toString());
+			tfDecimal.setText(myDecimal + "");
+			tfBinary.setText(myBinary);
 		});
 		
-		input3.setOnAction(e -> 
+		tfBinary.setOnAction(e -> 
 		{
-			input.setText(input3.getText());
-			input2.setText(input3.getText());
+			//input.setText(input3.getText());
+			//input2.setText(input3.getText());
 		});
 		
 
@@ -58,6 +64,41 @@ public class Assignment_16_5 extends Application {
 		primaryStage.show();
 
 	}
+	
+	public void decimalMethod(String input)
+	{
+		//Convert string to decimal, hex and binary
+		myDecimal = Integer.parseInt(input, 10);	//String converted to Int
+		myHex = Integer.toHexString(myDecimal);	//Int to Hex
+		myBinary = Integer.toBinaryString(myDecimal);	//Int to Binary
+		//System.out.println(myDecimal + " " + myHex + " " + myBinary);
+	}
+	
+	public void hexToDecimal(String input)
+	{
+		
+		// Convert Hex to Decimal (from book sample on page 143		
+		char ch = input.toUpperCase().charAt(0);
+		if (ch <= 'F' && ch >= 'A') {
+			myDecimal = ch - 'A' + 10;
+			myBinary = Integer.toBinaryString(myDecimal);	//Int to Binary
+			System.out.println("The decimal value for hex digit " 	+ ch + " is " + myDecimal);
+		 }
+		 else if (Character.isDigit(ch)) {
+			 System.out.println("The decimal value for hex digit " + ch + " is " + ch);
+			 myDecimal = ch;
+			 myBinary = Integer.toBinaryString(myDecimal);	//Int to Binary
+		 }
+		 else {
+		 System.out.println(ch + " is an invalid input");
+		 }
+		
+		 
+	}
+	
+	
+	
+	
 	
 	public static void main(String[] args) {
 		launch(args);
