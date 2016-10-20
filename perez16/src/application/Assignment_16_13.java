@@ -1,11 +1,14 @@
 package application;
 
+import java.text.NumberFormat;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -18,8 +21,11 @@ public class Assignment_16_13 extends Application {
 	protected Text tfInterest = new Text(5, 20, "Interest Rate");
 	protected Text tfPayment = new Text(5, 20, "Monthly Payment");
 	protected Text tfTotal = new Text(5, 20, "Total Payment");
+	protected TextArea taResults =  new TextArea();
+	protected Double[] interestRate = {5.0, 5.25, 5.5, 5.75, 6.00, 6.25, 6.5, 6.75, 7.00, 7.25, 7.5, 7.75, 8.0};
 	
 	protected BorderPane getPane() {
+		
 		//Create variables and required fields
 	    HBox paneForInput = new HBox(20);
 	    Button btSubmit = new Button("Show Table"); 
@@ -44,25 +50,37 @@ public class Assignment_16_13 extends Application {
 	    pane.setTop(paneForInput);
 	    
 	    //Create a pane setLeft for the interest rate column
-	    Pane paneForInterest = new Pane();
-	    paneForInterest.setMinWidth(150);
-	    paneForInterest.getChildren().add(tfInterest);    	    
-	    pane.setLeft(paneForInterest);
-	    
-	    //Create a pane setCenter for the monthly payment column
-	    Pane paneForPayment = new Pane();
-	    paneForPayment.setMinWidth(150);
-	    paneForPayment.getChildren().add(tfPayment);	    
-	    pane.setCenter(paneForPayment);
-	    
-	    //Create a pane setRight for the Total payment column
-	    Pane paneForTotal = new Pane();
-	    paneForTotal.setMinWidth(150);	    
-	    paneForTotal.getChildren().add(tfTotal);
-	    pane.setRight(paneForTotal);
+	    Pane paneForResults = new Pane();
+	    //paneForResults.setMinWidth(150);
+	    paneForResults.getChildren().add(taResults);    	    
+	    pane.setLeft(paneForResults);
 	    
 	    //Show Table button setOnAction event
-	    btSubmit.setOnAction(e -> tfInterest.setX(tfInterest.getX() + 10));
+	    btSubmit.setOnAction(e -> 
+	    {
+	    	taResults.setText(tfInterest.getText() + "\t\t" + tfPayment.getText() + "\t\t" + tfTotal.getText() + "\n");
+	    	
+	    	int years = Integer.parseInt(tfYears.getText().toString());
+	    	double amount = Double.parseDouble(tfAmount.getText().toString());
+	    	
+		    for(int i = 0; i < interestRate.length; i++)
+		    {
+		    	//Create instance of Loan class
+			    Loan myLoan = new Loan(interestRate[i].doubleValue(), years, amount);
+		    	//Append text for taResults text area
+			    taResults.appendText(interestRate[i].doubleValue() + "\t\t\t\t" + myLoan.getMonthlyPayment() + "\t" + myLoan.getTotalPayment() + "\n");
+			    i++;
+			    
+				System.out.printf("Payment is $%7.2f\n",(myLoan.getMonthlyPayment()));
+				
+				//NumberFormat test = myLoan.getMonthlyPayment().NumberFormat.getCurrencyInstance();
+
+		    	
+		    }
+		    
+		   
+	    }
+	    );
 	    
 	    return pane;
 	  }
