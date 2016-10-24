@@ -67,7 +67,7 @@ public class Assignment_16_5 extends Application {
 		});
 		
 
-		Scene scene = new Scene(pane, 250, 200);
+		Scene scene = new Scene(pane);
 		primaryStage.setTitle("Assignment 16.5");
 		primaryStage.setScene(scene);
 		primaryStage.show();

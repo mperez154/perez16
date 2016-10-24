@@ -1,7 +1,6 @@
 package application;
 
 import java.text.NumberFormat;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
