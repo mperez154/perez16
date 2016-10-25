@@ -21,12 +21,12 @@ public class Assignment_16_5 extends Application {
 		pane.setVgap(5.5);
 		pane.setHgap(10.0);
 
-		//Creating labels
-		pane.add(new Label("Decimal"), 0,0);
-		pane.add(new Label("Hex"), 0,1);
-		pane.add(new Label("Binary"), 0,2);
-		
-		//Creating TextFields
+		// Creating labels
+		pane.add(new Label("Decimal"), 0, 0);
+		pane.add(new Label("Hex"), 0, 1);
+		pane.add(new Label("Binary"), 0, 2);
+
+		// Creating TextFields
 		TextField tfDecimal = new TextField();
 		TextField tfHex = new TextField();
 		TextField tfBinary = new TextField();
